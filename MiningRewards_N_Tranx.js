@@ -128,23 +128,14 @@ eduRecord.createTransaction(new transactions('address1', 'address2', 100));
 eduRecord.createTransaction(new transactions('address2', 'address1', 50));
 
 console.log('\nStarting the miner...');
-eduRecord.minePendingTransactions('address1');
+eduRecord.minePendingTransactions('MinerPublicKey');
 
-console.log('Balance of Miraj is ', eduRecord.getBalanceAddress('address1'));
-console.log('Balance of Miraj is ', eduRecord.getBalanceAddress('address2'));
+console.log('Miner Reward: ' + eduRecord.getBalanceAddress('MinerPublicKey'));
 
 console.log('\nStarting the miner again...');
-eduRecord.minePendingTransactions('address1');
+eduRecord.minePendingTransactions('MinerPublicKey');
 
-console.log('Balance of Miraj is ', eduRecord.getBalanceAddress('address1'));
-console.log('Balance of Miraj is ', eduRecord.getBalanceAddress('address2'));
-
-
-
-
-
-
-
+console.log('Miner Reward: ' + eduRecord.getBalanceAddress('MinerPublicKey'));
 
 
 
