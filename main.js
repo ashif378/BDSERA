@@ -35,14 +35,14 @@ while(true)
             console.log('Student Id already exist !!!');
         }
         
-        waitForMenu();
+        pressEnterForMenu();
     }
     else if(option == 2)
     {
 
         console.log(JSON.stringify(eduRecord, null, 4));
 
-        waitForMenu();
+        pressEnterForMenu();
 
     }
     else if(option == 3)
@@ -61,7 +61,7 @@ while(true)
         console.log(JSON.stringify(eduRecord.chain[_BlockIndex], null, 4));
         }
 
-        waitForMenu();
+        pressEnterForMenu();
 
     }
     else if(option == 4)
@@ -104,7 +104,7 @@ function checkExist(sid)
     }
 }
 
-function waitForMenu()
+function pressEnterForMenu()
 {
     const a = prompt('\nPress Enter for Main Menu...\n');
     console.clear();
