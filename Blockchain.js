@@ -9,24 +9,38 @@ class Block
         this.data = data;
         this.previousHash = previousHash;
         this.hash = this.calculateHash();
+        this.nonce = 0;
     }
 
     calculateHash()
     {
-        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+    }
+
+    mineBlock(difficulty)
+    {
+        while( this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0") )
+        {
+            this.nonce++;
+            this.hash = this.calculateHash();
+        }
+        console.log("Block mined: " + this.hash);
     }
 }
+
+
 
 class Blockchain
 {
     constructor()
     {
         this.chain = [this.createGenesisBlock()];
+        this.difficulty = 4;
     }
 
     createGenesisBlock()
     {
-        return new Block(0, "20/11/2020", "Genesis block", "0");
+        return new Block(0, new Date(), "Genesis block", "0");
     }
 
     getLatestBlock()
@@ -37,7 +51,7 @@ class Blockchain
     addBlock(newBlock)
     {
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -62,38 +76,8 @@ class Blockchain
     }
 }
 
-let eduRecord = new Blockchain();
-eduRecord.addBlock(new Block(1, "10/2/2020", {S_Id: 1, name: "Miraj", CGPA: 3.90}));
-eduRecord.addBlock(new Block(2, "10/2/2020", {S_Id: 2, name: "Ashif", CGPA: 4.00}));
-eduRecord.addBlock(new Block(3, "10/2/2020", {S_Id: 3, name: "Ahmed", CGPA: 3.76}));
 
-console.log('Is Blockchain valid? ' + eduRecord.isChainValid());
-
-eduRecord.chain[1].data = {S_Id: 6, name: "Ashif", CGPA: 2.00};
-eduRecord.chain[1].hash = eduRecord.chain[1].calculateHash();
-
-console.log('Is Blockchain valid? ' + eduRecord.isChainValid());
-
-//console.log(JSON.stringify(eduRecord, null, 4));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports.Blockchain = Blockchain;
+module.exports.Block = Block;
 
 
