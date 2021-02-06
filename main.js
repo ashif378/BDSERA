@@ -22,18 +22,32 @@ while(true)
     {
 
         const id = prompt('\nEnter Id: ');
-        const name = prompt('\nEnter Name: ');
-        const cgpa = prompt('\nEnter CGPA: ');
 
-        eduRecord.addBlock(new Block(index++, new Date(), {S_Id: id, name: name, CGPA: cgpa}));
+        if(checkExist(id) == null)
+        {
+            const name = prompt('\nEnter Name: ');
+            const cgpa = prompt('\nEnter CGPA: ');
 
+            eduRecord.addBlock(new Block(index++, new Date(), {S_Id: id, name: name, CGPA: cgpa}));
+        }
+        else
+        {
+            console.log('Student Id already exist !!!');
+        }
+        
+        waitForMenu();
     }
     else if(option == 2)
     {
+
         console.log(JSON.stringify(eduRecord, null, 4));
+
+        waitForMenu();
+
     }
     else if(option == 3)
     {
+
         const id = prompt('\nEnter Id: ');
         
         var _BlockIndex = checkExist(id);
@@ -46,7 +60,9 @@ while(true)
         {
         console.log(JSON.stringify(eduRecord.chain[_BlockIndex], null, 4));
         }
-        
+
+        waitForMenu();
+
     }
     else if(option == 4)
     {
@@ -58,6 +74,8 @@ while(true)
         console.log('Wrong Input. Try again');
     }
 }
+
+
 
 function checkExist(sid)
 {
@@ -84,4 +102,10 @@ function checkExist(sid)
     {
         return null;
     }
+}
+
+function waitForMenu()
+{
+    const a = prompt('\nPress Enter for Main Menu...\n');
+    console.clear();
 }
